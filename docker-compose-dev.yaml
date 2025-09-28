@@ -1,0 +1,18 @@
+version: '3.8'
+name: eshopflow-backend
+services:
+  catalog_db:
+    container_name: catalog-db-dev
+    image: postgres:18.0
+    environment :
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_DB: ${POSTGRES_DB_NAME_CATALOG}
+    restart: always
+    ports:
+      - "${POSTGRES_PORT_CATALOG}:5432"
+    volumes:
+      - postgres_catalog:/var/tib/postgresql/data/
+
+volumes:
+  postgres_catalog:
