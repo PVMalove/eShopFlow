@@ -1,3 +1,9 @@
-﻿global using catalog.API.Extensions;
-global using catalog.Application;
-global using catalog.Infrastructure;
+﻿global using System.Net;
+global using Microsoft.AspNetCore.Mvc;
+global using MediatR;
+global using catalog.Application.Queries.CatalogItems;
+global using catalog.Application.Responses.CatalogItems;
+global using catalog.Application.Queries.Categories;
+global using catalog.Application.Responses.Categories;
+global using catalog.Application.Queries.Brands;
+global using catalog.Application.Responses.Brands;

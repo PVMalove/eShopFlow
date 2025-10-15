@@ -4,5 +4,6 @@ namespace catalog.Domain.Repositories;
 
 public interface ICategoryRepository
 {
-    Task<IEnumerable<Category>> GetAllCategoriesAsync();
+    Task<Category?> GetCategoryByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<IEnumerable<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken);
 }

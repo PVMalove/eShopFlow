@@ -1,6 +1,4 @@
-using catalog.Domain.Entities;
-
-namespace Catalog.Domain.Entities;
+namespace catalog.Domain.Entities;
 
 public class CatalogItem : BaseEntity
 {

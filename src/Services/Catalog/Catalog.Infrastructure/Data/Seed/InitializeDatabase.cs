@@ -1,6 +1,3 @@
-using catalog.Domain.Entities;
-using Catalog.Domain.Entities;
-using Marten;
 using Marten.Schema;
 
 namespace catalog.Infrastructure.Data.Seed;

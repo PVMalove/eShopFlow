@@ -1,0 +1,37 @@
+﻿version: '3.8'
+name: eshopflow-backend
+services:
+  
+  # catalog
+  catalog_db:
+    container_name: catalog-db
+    image: postgres:18.0
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME_CATALOG}
+    restart: always
+    ports:
+      - "${POSTGRES_PORT_CATALOG}:5432"
+    volumes:
+      - postgres_catalog_prod:/var/lib/postgresql/data/
+
+  catalog_api:
+    container_name: catalog.api
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=0
+    ports:
+      - "7301:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__PgConnection=${PG_CONNECTION}
+    depends_on:
+      catalog_db:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  postgres_catalog_prod:

@@ -1,3 +1,5 @@
+using catalog.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCustomServices(builder.Configuration);

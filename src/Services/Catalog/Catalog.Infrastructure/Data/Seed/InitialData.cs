@@ -1,7 +1,3 @@
-using System;
-using catalog.Domain.Entities;
-using Catalog.Domain.Entities;
-
 namespace catalog.Infrastructure.Data.Seed;
 
 public static class InitialData
