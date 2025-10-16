@@ -1,5 +1,3 @@
-using Asp.Versioning;
-
 namespace catalog.API.Controllers
 {
     [ApiVersion("1.0")]

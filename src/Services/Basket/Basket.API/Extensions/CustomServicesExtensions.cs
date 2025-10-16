@@ -1,11 +1,18 @@
-namespace catalog.API.Extensions;
+namespace Basket.API.Extensions;
 
 public static class CustomServicesExtensions
 {
     public static IServiceCollection AddCustomServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddApplication(configuration)
-            .AddInfrastructure(configuration);
+        services.AddCarter();
+
+        services.AddMediatR(config => { config.RegisterServicesFromAssembly(AssemblyReference.Assembly); });
+
+        var connectionString = configuration.GetConnectionString("PgConnection")
+                               ?? throw new InvalidOperationException($"Connection string 'PgConnection' not found.");
+
+        services.AddMarten(options => { options.Connection(connectionString); })
+            .UseLightweightSessions();
 
         services.AddApiVersioning(options =>
             {
@@ -33,10 +40,9 @@ public static class CustomServicesExtensions
     public static WebApplication UseCustomServices(this WebApplication application)
     {
         application.MapControllers();
-
+        application.MapCarter();
         if (application.Environment.IsDevelopment())
         {
-            application.UseSwagger();
             application.UseSwaggerUI(options =>
             {
                 var provider = application.Services.GetRequiredService<IApiVersionDescriptionProvider>();
@@ -45,7 +51,7 @@ public static class CustomServicesExtensions
                 {
                     options.SwaggerEndpoint(
                         $"/swagger/{description.GroupName}/swagger.json",
-                        $"Catalog API {description.GroupName.ToUpperInvariant()}");
+                        $"Basket API {description.GroupName.ToUpperInvariant()}");
                 }
             });
         }

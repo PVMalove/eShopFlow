@@ -1,5 +1,4 @@
-﻿using Asp.Versioning;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Swashbuckle.AspNetCore.Annotations;
 
 namespace catalog.API.Controllers;
 

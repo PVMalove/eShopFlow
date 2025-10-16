@@ -2,7 +2,6 @@
 name: eshopflow-backend
 services:
   
-  # catalog
   catalog_db:
     container_name: catalog-db
     image: postgres:18.0
@@ -27,7 +26,7 @@ services:
       - "7301:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__PgConnection=${PG_CONNECTION}
+      - ConnectionStrings__PgConnection=${PG_CONNECTION_CATALOG}
     depends_on:
       catalog_db:
         condition: service_started

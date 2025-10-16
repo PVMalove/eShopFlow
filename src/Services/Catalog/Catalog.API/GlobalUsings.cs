@@ -1,6 +1,12 @@
 ﻿global using System.Net;
+global using Asp.Versioning;
+global using Asp.Versioning.ApiExplorer;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Extensions.Options;
+global using Swashbuckle.AspNetCore.SwaggerGen;
 global using MediatR;
+global using catalog.Application;
+global using catalog.Infrastructure;
 global using catalog.Application.Queries.CatalogItems;
 global using catalog.Application.Responses.CatalogItems;
 global using catalog.Application.Queries.Categories;

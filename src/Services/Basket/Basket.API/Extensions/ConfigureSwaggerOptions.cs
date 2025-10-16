@@ -1,6 +1,9 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Asp.Versioning.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace catalog.API.Extensions;
+namespace Basket.API.Extensions;
 
 public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : IConfigureOptions<SwaggerGenOptions>
 {

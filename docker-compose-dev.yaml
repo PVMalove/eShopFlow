@@ -1,6 +1,7 @@
 version: '3.8'
 name: eshopflow-backend
 services:
+  
   catalog_db:
     container_name: catalog-db-dev
     image: postgres:18.0
@@ -14,5 +15,19 @@ services:
     volumes:
       - postgres_catalog:/var/tib/postgresql/data/
 
+  basket_db:
+    container_name: basket-db-dev
+    image: postgres:18.0
+    environment :
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME_BASKET}
+    restart: always
+    ports:
+      - "${POSTGRES_PORT_BASKET}:5432"
+    volumes:
+      - postgres_basket:/var/tib/postgresql/data/
+
 volumes:
   postgres_catalog:
+  postgres_basket:
