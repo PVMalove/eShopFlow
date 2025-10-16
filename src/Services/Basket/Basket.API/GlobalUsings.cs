@@ -5,3 +5,5 @@ global using Marten;
 global using Microsoft.Extensions.Options;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using Common.Kernel.Abstractions.Messaging;
+global using Basket.API.Infrastructure;
+global using Basket.API.Models;

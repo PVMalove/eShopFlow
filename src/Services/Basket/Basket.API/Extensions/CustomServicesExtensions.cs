@@ -11,7 +11,11 @@ public static class CustomServicesExtensions
         var connectionString = configuration.GetConnectionString("PgConnection")
                                ?? throw new InvalidOperationException($"Connection string 'PgConnection' not found.");
 
-        services.AddMarten(options => { options.Connection(connectionString); })
+        services.AddMarten(options =>
+            {
+                options.Connection(connectionString);
+                options.Schema.For<ShoppingCart>().Identity(x => x.AccountName);
+            })
             .UseLightweightSessions();
 
         services.AddApiVersioning(options =>
@@ -26,14 +30,12 @@ public static class CustomServicesExtensions
                 options.SubstituteApiVersionInUrl = true;
             });
 
-        services.AddControllers();
-
         services
             .AddEndpointsApiExplorer()
             .AddSwaggerGen();
 
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-
+        services.AddScoped<ICartRepository, CartRepository>();
         return services;
     }
 
