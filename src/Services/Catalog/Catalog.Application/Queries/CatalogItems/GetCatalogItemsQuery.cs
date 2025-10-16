@@ -2,4 +2,4 @@
 
 namespace catalog.Application.Queries.CatalogItems;
 
-public record GetCatalogItemsQuery : IRequest<GetCatalogItemsResult>;
+public record GetCatalogItemsQuery : IQuery<GetCatalogItemsResult>;

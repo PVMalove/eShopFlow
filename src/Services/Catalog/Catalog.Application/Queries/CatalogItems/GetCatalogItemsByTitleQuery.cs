@@ -2,4 +2,4 @@
 
 namespace catalog.Application.Queries.CatalogItems;
 
-public record GetCatalogItemsByTitleQuery(string Title) : IRequest<GetCatalogItemsByTitleResult>;
+public record GetCatalogItemsByTitleQuery(string Title) : IQuery<GetCatalogItemsByTitleResult>;

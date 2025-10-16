@@ -4,7 +4,7 @@ using catalog.Application.Responses.CatalogItems;
 namespace catalog.Application.Handlers.CatalogItems;
 
 public class GetCatalogItemsByBrandTitleQueryHandler(ICatalogItemRepository catalogItemRepository)
-    : IRequestHandler<GetCatalogItemsByBrandTitleQuery, GetCatalogItemsByBrandTitleResult>
+    : IQueryHandler<GetCatalogItemsByBrandTitleQuery, GetCatalogItemsByBrandTitleResult>
 {
     public async Task<GetCatalogItemsByBrandTitleResult> Handle(GetCatalogItemsByBrandTitleQuery query,
         CancellationToken cancellationToken)

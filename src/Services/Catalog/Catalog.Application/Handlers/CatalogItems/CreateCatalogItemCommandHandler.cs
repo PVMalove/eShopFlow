@@ -7,7 +7,7 @@ public class CreateCatalogItemCommandHandler(
     ICatalogItemRepository catalogItemRepository,
     IBrandRepository brandRepository,
     ICategoryRepository categoryRepository)
-    : IRequestHandler<CreateCatalogItemCommand, CreateCatalogItemResult>
+    : ICommandHandler<CreateCatalogItemCommand, CreateCatalogItemResult>
 {
     public async Task<CreateCatalogItemResult> Handle(CreateCatalogItemCommand command,
         CancellationToken cancellationToken)

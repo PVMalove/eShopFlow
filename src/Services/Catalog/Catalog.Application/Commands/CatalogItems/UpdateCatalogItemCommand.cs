@@ -11,4 +11,4 @@ public record UpdateCatalogItemCommand(
     Guid? BrandId,
     Guid? CategoryId,
     decimal Price
-) : IRequest<UpdateCatalogItemResult>;
+) : ICommand<UpdateCatalogItemResult>;

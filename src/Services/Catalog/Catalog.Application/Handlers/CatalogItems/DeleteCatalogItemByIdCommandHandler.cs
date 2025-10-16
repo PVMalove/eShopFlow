@@ -4,7 +4,7 @@ using catalog.Application.Responses.CatalogItems;
 namespace catalog.Application.Handlers.CatalogItems;
 
 public class DeleteCatalogItemByIdCommandHandler(ICatalogItemRepository catalogItemRepository)
-    : IRequestHandler<DeleteCatalogItemByIdCommand, DeleteCatalogItemByIdResult>
+    : ICommandHandler<DeleteCatalogItemByIdCommand, DeleteCatalogItemByIdResult>
 {
     public async Task<DeleteCatalogItemByIdResult> Handle(DeleteCatalogItemByIdCommand request,
         CancellationToken cancellationToken)

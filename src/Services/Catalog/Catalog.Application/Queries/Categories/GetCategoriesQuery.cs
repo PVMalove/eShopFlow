@@ -2,4 +2,4 @@
 
 namespace catalog.Application.Queries.Categories;
 
-public record GetCategoriesQuery : IRequest<GetCategoriesResult>;
+public record GetCategoriesQuery : IQuery<GetCategoriesResult>;

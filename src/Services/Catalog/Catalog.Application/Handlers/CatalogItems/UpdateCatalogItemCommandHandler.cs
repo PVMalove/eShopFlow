@@ -7,7 +7,7 @@ public class UpdateCatalogItemCommandHandler(
     ICatalogItemRepository catalogItemRepository,
     IBrandRepository brandRepository,
     ICategoryRepository categoryRepository)
-    : IRequestHandler<UpdateCatalogItemCommand, UpdateCatalogItemResult>
+    : ICommandHandler<UpdateCatalogItemCommand, UpdateCatalogItemResult>
 {
     public async Task<UpdateCatalogItemResult> Handle(UpdateCatalogItemCommand command,
         CancellationToken cancellationToken)

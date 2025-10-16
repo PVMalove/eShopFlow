@@ -2,4 +2,4 @@ using catalog.Application.Responses.Brands;
 
 namespace catalog.Application.Queries.Brands;
 
-public record GetBrandsQuery : IRequest<GetBrandsResult>;
+public record GetBrandsQuery : IQuery<GetBrandsResult>;

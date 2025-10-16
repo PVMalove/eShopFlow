@@ -3,7 +3,7 @@ using catalog.Application.Responses.Brands;
 
 namespace catalog.Application.Handlers.Brands;
 
-public class GetBrandsQueryHandlers(IBrandRepository brandRepository) : IRequestHandler<GetBrandsQuery, GetBrandsResult>
+public class GetBrandsQueryHandlers(IBrandRepository brandRepository) : IQueryHandler<GetBrandsQuery, GetBrandsResult>
 {
     public async Task<GetBrandsResult> Handle(GetBrandsQuery query, CancellationToken cancellationToken)
     {

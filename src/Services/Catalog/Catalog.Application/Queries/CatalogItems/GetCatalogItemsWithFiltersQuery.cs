@@ -12,4 +12,4 @@ public record GetCatalogItemsWithFiltersQuery(
     Guid? CategoryId = null,
     decimal? MinPrice = null,
     decimal? MaxPrice = null
-) : IRequest<GetCatalogItemsWithPaginationResult>;
+) : IQuery<GetCatalogItemsWithPaginationResult>;

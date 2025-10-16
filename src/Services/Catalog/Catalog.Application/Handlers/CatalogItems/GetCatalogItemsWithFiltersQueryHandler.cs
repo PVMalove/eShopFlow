@@ -5,7 +5,7 @@ using catalog.Domain.Specifications;
 namespace catalog.Application.Handlers.CatalogItems;
 
 public class GetCatalogItemsWithFiltersQueryHandler(ICatalogItemRepository catalogItemRepository)
-    : IRequestHandler<GetCatalogItemsWithFiltersQuery, GetCatalogItemsWithPaginationResult>
+    : IQueryHandler<GetCatalogItemsWithFiltersQuery, GetCatalogItemsWithPaginationResult>
 {
     public async Task<GetCatalogItemsWithPaginationResult> Handle(
         GetCatalogItemsWithFiltersQuery query,

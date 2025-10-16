@@ -10,4 +10,4 @@ public record CreateCatalogItemCommand(
     Guid? BrandId,
     Guid? CategoryId,
     decimal Price
-    ) : IRequest<CreateCatalogItemResult>;
+    ) : ICommand<CreateCatalogItemResult>;
