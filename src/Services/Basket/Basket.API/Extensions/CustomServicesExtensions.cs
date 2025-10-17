@@ -32,7 +32,10 @@ public static class CustomServicesExtensions
 
         services
             .AddEndpointsApiExplorer()
-            .AddSwaggerGen();
+            .AddSwaggerGen(options =>
+            {
+                options.EnableAnnotations();
+            });
 
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         services.AddScoped<ICartRepository, CartRepository>();
@@ -41,10 +44,10 @@ public static class CustomServicesExtensions
 
     public static WebApplication UseCustomServices(this WebApplication application)
     {
-        application.MapControllers();
         application.MapCarter();
         if (application.Environment.IsDevelopment())
         {
+            application.UseSwagger();
             application.UseSwaggerUI(options =>
             {
                 var provider = application.Services.GetRequiredService<IApiVersionDescriptionProvider>();
