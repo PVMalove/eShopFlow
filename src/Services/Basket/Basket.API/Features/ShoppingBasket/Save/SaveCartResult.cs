@@ -1,3 +1,3 @@
 ﻿namespace Basket.API.Features.ShoppingBasket.Save;
 
-public record SaveCartResult(string AccountName);
+internal sealed record SaveCartResult(string AccountName);

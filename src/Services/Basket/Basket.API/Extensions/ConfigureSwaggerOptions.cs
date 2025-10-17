@@ -15,7 +15,7 @@ public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : 
                 description.GroupName,
                 new OpenApiInfo
                 {
-                    Title = $"Catalog API {description.ApiVersion}",
+                    Title = $"Basket API {description.ApiVersion}",
                     Version = description.ApiVersion.ToString(),
                     Description = description.IsDeprecated ? 
                         "This API version has been deprecated." : ""

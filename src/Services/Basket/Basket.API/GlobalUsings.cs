@@ -2,6 +2,7 @@
 global using Asp.Versioning.ApiExplorer;
 global using Carter;
 global using Marten;
+global using MediatR;
 global using Microsoft.Extensions.Options;
 global using Swashbuckle.AspNetCore.SwaggerGen;
 global using Common.Kernel.Abstractions.Messaging;

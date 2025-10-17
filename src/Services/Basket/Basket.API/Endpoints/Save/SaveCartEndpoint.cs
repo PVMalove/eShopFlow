@@ -1,5 +1,4 @@
 ﻿using Basket.API.Features.ShoppingBasket.Save;
-using MediatR;
 
 namespace Basket.API.Endpoints.Save;
 

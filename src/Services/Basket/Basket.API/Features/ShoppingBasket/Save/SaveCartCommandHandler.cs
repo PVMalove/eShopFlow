@@ -1,6 +1,6 @@
 ﻿namespace Basket.API.Features.ShoppingBasket.Save;
 
-public class SaveCartCommandHandler(ICartRepository cartRepository) : ICommandHandler<SaveCartCommand, SaveCartResult>
+internal sealed class SaveCartCommandHandler(ICartRepository cartRepository) : ICommandHandler<SaveCartCommand, SaveCartResult>
 {
     public async Task<SaveCartResult> Handle(SaveCartCommand command, CancellationToken cancellationToken)
     {
