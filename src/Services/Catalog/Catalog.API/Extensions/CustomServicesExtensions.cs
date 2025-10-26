@@ -4,8 +4,8 @@ public static class CustomServicesExtensions
 {
     public static IServiceCollection AddCustomServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddApplication(configuration)
-            .AddInfrastructure(configuration);
+        services.AddApplication(configuration);
+        services.AddInfrastructure(configuration);
 
         services.AddApiVersioning(options =>
             {

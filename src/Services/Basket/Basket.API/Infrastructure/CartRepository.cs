@@ -1,3 +1,5 @@
+using Basket.API.Exceptions;
+
 namespace Basket.API.Infrastructure;
 
 public class CartRepository(IDocumentSession session) : ICartRepository
@@ -8,7 +10,7 @@ public class CartRepository(IDocumentSession session) : ICartRepository
 
         if (cart is null)
         {
-            throw new Exception($"Карзины для {accountName} не найдены");
+            throw new CartNotFoundException(accountName);
         }
 
         return cart;
@@ -27,7 +29,7 @@ public class CartRepository(IDocumentSession session) : ICartRepository
 
         if (cart is null)
         {
-            throw new Exception($"Карзины для {accountName} не найдены");
+            throw new CartNotFoundException(accountName);
         }
 
         session.Delete(cart);

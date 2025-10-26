@@ -1,9 +1,13 @@
+using Common.Kernel.Exceptions.Handler;
+
 namespace Basket.API.Extensions;
 
 public static class CustomServicesExtensions
 {
     public static IServiceCollection AddCustomServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddExceptionHandler<CustomExceptionHandler>();
+        services.AddProblemDetails();
         services.AddCarter();
 
         services.AddMediatR(config => { config.RegisterServicesFromAssembly(AssemblyReference.Assembly); });
@@ -44,7 +48,9 @@ public static class CustomServicesExtensions
 
     public static WebApplication UseCustomServices(this WebApplication application)
     {
+        application.UseExceptionHandler();
         application.MapCarter();
+        
         if (application.Environment.IsDevelopment())
         {
             application.UseSwagger();
