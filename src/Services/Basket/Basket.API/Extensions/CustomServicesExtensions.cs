@@ -1,4 +1,6 @@
+using Common.Kernel.Behaviors;
 using Common.Kernel.Exceptions.Handler;
+using FluentValidation;
 
 namespace Basket.API.Extensions;
 
@@ -10,10 +12,16 @@ public static class CustomServicesExtensions
         services.AddProblemDetails();
         services.AddCarter();
 
-        services.AddMediatR(config => { config.RegisterServicesFromAssembly(AssemblyReference.Assembly); });
-
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(AssemblyReference.Assembly);
+            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+        });
+        
+        services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
+        
         var connectionString = configuration.GetConnectionString("PgConnection")
-                               ?? throw new InvalidOperationException($"Connection string 'PgConnection' not found.");
+                               ?? throw new InvalidOperationException("Connection string 'PgConnection' not found.");
 
         services.AddMarten(options =>
             {
