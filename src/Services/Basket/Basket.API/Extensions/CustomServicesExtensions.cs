@@ -17,9 +17,9 @@ public static class CustomServicesExtensions
             config.RegisterServicesFromAssembly(AssemblyReference.Assembly);
             config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
         });
-        
+
         services.AddValidatorsFromAssembly(AssemblyReference.Assembly, includeInternalTypes: true);
-        
+
         var connectionString = configuration.GetConnectionString("PgConnection")
                                ?? throw new InvalidOperationException("Connection string 'PgConnection' not found.");
 
@@ -29,6 +29,15 @@ public static class CustomServicesExtensions
                 options.Schema.For<ShoppingCart>().Identity(x => x.AccountName);
             })
             .UseLightweightSessions();
+
+        var redisConnectionString = configuration.GetConnectionString("RedisConnection")
+                                    ?? throw new InvalidOperationException("Connection string 'RedisConnection' not found.");
+
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = redisConnectionString;
+            options.InstanceName = "Basket";
+        });
 
         services.AddApiVersioning(options =>
             {
@@ -44,36 +53,45 @@ public static class CustomServicesExtensions
 
         services
             .AddEndpointsApiExplorer()
-            .AddSwaggerGen(options =>
-            {
-                options.EnableAnnotations();
-            });
+            .AddSwaggerGen(options => { options.EnableAnnotations(); });
 
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+        
         services.AddScoped<ICartRepository, CartRepository>();
+        services.Decorate<ICartRepository, RedisCartCachedRepository>();
+        
         return services;
     }
 
     public static WebApplication UseCustomServices(this WebApplication application)
     {
         application.UseExceptionHandler();
-        application.MapCarter();
-        
-        if (application.Environment.IsDevelopment())
-        {
-            application.UseSwagger();
-            application.UseSwaggerUI(options =>
-            {
-                var provider = application.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint(
-                        $"/swagger/{description.GroupName}/swagger.json",
-                        $"Basket API {description.GroupName.ToUpperInvariant()}");
-                }
-            });
-        }
+        var apiVersionSet = application.NewApiVersionSet()
+            .HasApiVersion(new ApiVersion(1, 0))
+            .ReportApiVersions()
+            .Build();
+
+        application.MapGroup("api/v{version:apiVersion}")
+            .WithApiVersionSet(apiVersionSet)
+            .WithTags("Basket")
+            .MapCarter();
+
+        if (!application.Environment.IsDevelopment()) 
+            return application;
+        
+        application.UseSwagger();
+        application.UseSwaggerUI(options =>
+        {
+            var provider = application.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+            foreach (var description in provider.ApiVersionDescriptions)
+            {
+                options.SwaggerEndpoint(
+                    $"/swagger/{description.GroupName}/swagger.json",
+                    $"Basket API {description.GroupName.ToUpperInvariant()}");
+            }
+        });
 
         return application;
     }

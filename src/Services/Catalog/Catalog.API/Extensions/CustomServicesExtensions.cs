@@ -34,21 +34,21 @@ public static class CustomServicesExtensions
     {
         application.MapControllers();
 
-        if (application.Environment.IsDevelopment())
+        if (!application.Environment.IsDevelopment()) 
+            return application;
+        
+        application.UseSwagger();
+        application.UseSwaggerUI(options =>
         {
-            application.UseSwagger();
-            application.UseSwaggerUI(options =>
-            {
-                var provider = application.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+            var provider = application.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint(
-                        $"/swagger/{description.GroupName}/swagger.json",
-                        $"Catalog API {description.GroupName.ToUpperInvariant()}");
-                }
-            });
-        }
+            foreach (var description in provider.ApiVersionDescriptions)
+            {
+                options.SwaggerEndpoint(
+                    $"/swagger/{description.GroupName}/swagger.json",
+                    $"Catalog API {description.GroupName.ToUpperInvariant()}");
+            }
+        });
 
         return application;
     }

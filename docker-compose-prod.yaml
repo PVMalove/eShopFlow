@@ -14,6 +14,35 @@ services:
       - "${POSTGRES_PORT_CATALOG}:5432"
     volumes:
       - postgres_catalog_prod:/var/lib/postgresql/data/
+    networks:
+      - eshop-network
+
+  basket_db:
+    container_name: basket-db
+    image: postgres:18.0
+    environment :
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME_BASKET}
+    restart: always
+    ports:
+      - "${POSTGRES_PORT_BASKET}:5432"
+    volumes:
+      - postgres_basket_prod:/var/lib/postgresql/data/
+    networks:
+      - eshop-network
+
+  basket_redis:
+    container_name: basket-redis
+    image: redis:8.2.0
+    command: redis-server --requirepass "${REDIS_PASSWORD}" --protected-mode no
+    restart: always
+    ports:
+      - "${REDIS_PORT_BASKET}:6379"
+    volumes:
+      - redis_basket_prod:/data
+    networks:
+      - eshop-network
 
   catalog_api:
     container_name: catalog.api
@@ -21,7 +50,7 @@ services:
       context: .
       dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
       args:
-        - BUILDKIT_INLINE_CACHE=0
+        - BUILDKIT_INLINE_CACHE=1
     ports:
       - "7301:8080"
     environment:
@@ -31,6 +60,36 @@ services:
       catalog_db:
         condition: service_started
     restart: unless-stopped
+    networks:
+      - eshop-network
+
+  basket_api:
+    container_name: basket.api
+    build:
+      context: .
+      dockerfile: src/Services/Basket/Basket.API/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    ports:
+      - "7302:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__PgConnection=${PG_CONNECTION_BASKET}
+      - ConnectionStrings__RedisConnection=${REDIS_CONNECTION_BASKET}
+    depends_on:
+      basket_db:
+        condition: service_started
+      basket_redis:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - eshop-network
 
 volumes:
   postgres_catalog_prod:
+  postgres_basket_prod:
+  redis_basket_prod:
+    
+networks:
+  eshop-network:
+    driver: bridge
