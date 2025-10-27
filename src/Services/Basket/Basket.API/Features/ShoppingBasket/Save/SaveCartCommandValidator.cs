@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Basket.API.Features.ShoppingBasket.Save;
+﻿namespace Basket.API.Features.ShoppingBasket.Save;
 
 public class SaveCartCommandValidator : AbstractValidator<SaveCartCommand>
 {

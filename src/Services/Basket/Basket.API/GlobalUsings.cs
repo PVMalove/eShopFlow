@@ -1,10 +1,11 @@
 ﻿global using Asp.Versioning;
 global using Asp.Versioning.ApiExplorer;
+global using Microsoft.Extensions.Options;
+global using Swashbuckle.AspNetCore.SwaggerGen;
 global using Carter;
 global using Marten;
 global using MediatR;
-global using Microsoft.Extensions.Options;
-global using Swashbuckle.AspNetCore.SwaggerGen;
+global using FluentValidation;
 global using Common.Kernel.Abstractions.Messaging;
 global using Basket.API.Infrastructure;
 global using Basket.API.Models;
