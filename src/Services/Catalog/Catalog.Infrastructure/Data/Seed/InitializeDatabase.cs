@@ -6,7 +6,7 @@ public class InitializeDatabase : IInitialData
 {
     public async Task Populate(IDocumentStore store, CancellationToken cancellation)
     {
-        using var session = store.LightweightSession();
+        await using var session = store.LightweightSession();
 
         if (!await session.Query<Brand>().AnyAsync(cancellation))
         {

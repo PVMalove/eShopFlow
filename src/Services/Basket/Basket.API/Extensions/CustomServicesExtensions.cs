@@ -1,6 +1,5 @@
 using Common.Kernel.Behaviors;
 using Common.Kernel.Exceptions.Handler;
-using FluentValidation;
 
 namespace Basket.API.Extensions;
 

@@ -31,7 +31,26 @@ services:
       - postgres_basket:/var/tib/postgresql/data/
     networks:
       - eshop-network
-      
+  
+  promotion_db:
+    container_name: promotion-db-dev
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME_PROMOTION}
+    restart: always
+    ports:
+      - "${MYSQL_PORT_PROMOTION}:3306"
+    volumes:
+      - mysql_promotion:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-p12345678" ]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    networks:
+      - eshop-network
+
   basket_redis:
     container_name: basket-redis-dev
     image: redis:8.2.0
@@ -48,6 +67,7 @@ volumes:
   postgres_catalog:
   postgres_basket:
   redis_basket:
+  mysql_promotion:
     
 networks:
   eshop-network:
