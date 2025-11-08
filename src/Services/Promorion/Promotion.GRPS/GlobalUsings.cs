@@ -1,1 +1,15 @@
-﻿global using Asp.Versioning;
+﻿global using System.Data;
+global using Grpc.Core;
+global using MediatR;
+global using Mapster;
+global using Dapper;
+global using MySqlConnector;
+global using Promotion.GRPS.Extensions;
+global  using Promotion.GRPS.Persistence.Data;
+global using Promotion.GRPS.Services;
+global using Promotion.GRPS.Protos;
+global using Promotion.GRPS.Domain;
+global using Promotion.GRPS.Features.GetPromotions;
+global using Promotion.GRPS.Persistence.Abstractions;
+global using Promotion.GRPS.Persistence.Repositories;
+global using Common.Kernel.Abstractions.Messaging;

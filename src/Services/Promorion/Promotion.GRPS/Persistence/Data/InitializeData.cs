@@ -1,6 +1,4 @@
-﻿using Promotion.GRPS.Domain;
-
-namespace Promotion.GRPS.Persistence.Data;
+﻿namespace Promotion.GRPS.Persistence.Data;
 
 public static class InitializeData
 {

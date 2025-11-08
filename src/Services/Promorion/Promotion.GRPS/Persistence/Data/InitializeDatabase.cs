@@ -1,7 +1,4 @@
-﻿using System.Data;
-using Dapper;
-
-namespace Promotion.GRPS.Persistence.Data;
+﻿namespace Promotion.GRPS.Persistence.Data;
 
 public static class InitializeDatabase
 {
