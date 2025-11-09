@@ -41,4 +41,15 @@ internal sealed class PromoRepository(IDbConnection connection) : IPromoReposito
         var affectedRows = await connection.ExecuteAsync(sql, promo);
         return affectedRows > 0;
     }
+    
+    public async Task<bool> DeletePromotionByCatalogItemIdAsync(string catalogItemId)
+    {
+        const string sql =
+            """
+            DELETE FROM Promos
+            WHERE CatalogItemId = @catalogItemId
+            """;
+        var affectedRows = await connection.ExecuteAsync(sql, new {catalogItemId});
+        return affectedRows > 0;
+    }
 }

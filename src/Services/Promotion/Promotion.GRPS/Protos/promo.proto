@@ -6,6 +6,7 @@ service PromotionService {
   rpc GetPromotion (GetPromotionRequest) returns (PromotionResponse);
   rpc CreatePromotion (CreatePromotionRequest) returns (CreatePromotionResponse);
   rpc UpdatePromotion (UpdatePromotionRequest) returns (UpdatePromotionResponse);
+  rpc DeletePromotion (DeletePromotionRequest) returns (DeletePromotionResponse);
 }
 
 message GetPromotionRequest {
@@ -36,5 +37,13 @@ message UpdatePromotionRequest{
 }
 
 message UpdatePromotionResponse {
+  bool success = 1;
+}
+
+message DeletePromotionRequest {
+  string catalog_item_id = 1;
+}
+
+message DeletePromotionResponse {
   bool success = 1;
 }

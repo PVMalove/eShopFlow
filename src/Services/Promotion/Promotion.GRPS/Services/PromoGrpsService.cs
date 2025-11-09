@@ -1,4 +1,5 @@
 ﻿using Promotion.GRPS.Features.CreatePromotion;
+using Promotion.GRPS.Features.DeletePromotion;
 using Promotion.GRPS.Features.UpdatePromotion;
 
 namespace Promotion.GRPS.Services;
@@ -23,6 +24,14 @@ internal sealed class PromoGrpsService(ISender sender) : PromotionService.Promot
         ServerCallContext context)
     {
         var command = new UpdatePromoCommand(request);
+        var result = await sender.Send(command, context.CancellationToken);
+        return result;
+    }
+    
+    public override async Task<DeletePromotionResponse> DeletePromotion(DeletePromotionRequest request,
+        ServerCallContext context)
+    {
+        var command = new DeletePromoCommand(request.CatalogItemId);
         var result = await sender.Send(command, context.CancellationToken);
         return result;
     }

@@ -32,6 +32,25 @@ services:
     networks:
       - eshop-network
 
+  promotion_db:
+    container_name: promotion-db
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME_PROMOTION}
+    restart: always
+    ports:
+      - "${MYSQL_PORT_PROMOTION}:3306"
+    volumes:
+      - mysql_promotion:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-p12345678" ]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+    networks:
+      - eshop-network
+
   basket_redis:
     container_name: basket-redis
     image: redis:8.2.0
@@ -85,9 +104,30 @@ services:
     networks:
       - eshop-network
 
+  promotion_api:
+    container_name: promotion.grps
+    build:
+      context: .
+      dockerfile: src/Services/Promotion/Promotion.GRPS/Dockerfile
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    ports:
+      - "7303:8080"
+      - "7313:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__MySqlConnection=${MYSQL_CONNECTION_PROMOTION}
+    depends_on:
+      promotion_db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - eshop-network
+
 volumes:
   postgres_catalog_prod:
   postgres_basket_prod:
+  mysql_promotion:
   redis_basket_prod:
     
 networks:

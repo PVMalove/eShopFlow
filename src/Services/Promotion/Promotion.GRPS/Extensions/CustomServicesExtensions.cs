@@ -30,9 +30,7 @@ public static class CustomServicesExtensions
     public static WebApplication UseCustomServices(this WebApplication application)
     {
         application.MapGrpcService<PromoGrpsService>();
-        
-        if (application.Environment.IsDevelopment()) 
-            application.MapGrpcReflectionService();
+        application.MapGrpcReflectionService();
 
         return application;
     }

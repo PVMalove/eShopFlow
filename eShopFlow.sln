@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "src\Services\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Promotion", "Promotion", "{3C85975B-BA45-4FAB-A626-70A10C2CBEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promotion.GRPS", "src\Services\Promorion\Promotion.GRPS\Promotion.GRPS.csproj", "{46F31C4F-B4CA-467A-8CC3-20FDDFF4B85E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promotion.GRPS", "src\Services\Promotion\Promotion.GRPS\Promotion.GRPS.csproj", "{46F31C4F-B4CA-467A-8CC3-20FDDFF4B85E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
