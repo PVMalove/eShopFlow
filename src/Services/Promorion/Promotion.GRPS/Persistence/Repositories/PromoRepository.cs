@@ -28,4 +28,17 @@ internal sealed class PromoRepository(IDbConnection connection) : IPromoReposito
         var affectedRows = await connection.ExecuteAsync(sql, promo);
         return affectedRows > 0;
     }
+
+    public async Task<bool> UpdatePromotionAsync(Promo promo)
+    {
+        const string sql =
+            """
+            UPDATE Promos
+            SET Title = @Title,
+                Value = @Value
+            WHERE Id = @Id
+            """;
+        var affectedRows = await connection.ExecuteAsync(sql, promo);
+        return affectedRows > 0;
+    }
 }

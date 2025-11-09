@@ -1,4 +1,5 @@
 ﻿using Promotion.GRPS.Features.CreatePromotion;
+using Promotion.GRPS.Features.UpdatePromotion;
 
 namespace Promotion.GRPS.Services;
 
@@ -14,6 +15,14 @@ internal sealed class PromoGrpsService(ISender sender) : PromotionService.Promot
     public override async Task<CreatePromotionResponse> CreatePromotion(CreatePromotionRequest request, ServerCallContext context)
     {
         var command = new CreatePromoCommand(request);
+        var result = await sender.Send(command, context.CancellationToken);
+        return result;
+    }
+
+    public override async Task<UpdatePromotionResponse> UpdatePromotion(UpdatePromotionRequest request,
+        ServerCallContext context)
+    {
+        var command = new UpdatePromoCommand(request);
         var result = await sender.Send(command, context.CancellationToken);
         return result;
     }

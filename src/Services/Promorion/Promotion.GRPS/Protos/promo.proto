@@ -5,6 +5,7 @@ option csharp_namespace = "Promotion.GRPS.Protos";
 service PromotionService {
   rpc GetPromotion (GetPromotionRequest) returns (PromotionResponse);
   rpc CreatePromotion (CreatePromotionRequest) returns (CreatePromotionResponse);
+  rpc UpdatePromotion (UpdatePromotionRequest) returns (UpdatePromotionResponse);
 }
 
 message GetPromotionRequest {
@@ -26,4 +27,14 @@ message CreatePromotionRequest {
 
 message CreatePromotionResponse {
   string id = 1;
+}
+
+message UpdatePromotionRequest{
+  string id = 1;
+  string title = 2;
+  double value = 3;
+}
+
+message UpdatePromotionResponse {
+  bool success = 1;
 }

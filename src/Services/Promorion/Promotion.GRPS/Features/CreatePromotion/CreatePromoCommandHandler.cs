@@ -5,13 +5,7 @@ public class CreatePromoCommandHandler(IPromoRepository promoRepository)
 {
     public async Task<CreatePromotionResponse> Handle(CreatePromoCommand command, CancellationToken cancellationToken)
     {
-        var promo = new Promo
-        {
-            Id = Guid.NewGuid(),
-            CatalogItemId = command.promotion.CatalogItemId,
-            Title = command.promotion.Title,
-            Value = (decimal)command.promotion.Value
-        };
+        var promo = command.Promotion.Adapt<Promo>();
         
         var createdPromo = await promoRepository.CreatePromotionAsync(promo);
         

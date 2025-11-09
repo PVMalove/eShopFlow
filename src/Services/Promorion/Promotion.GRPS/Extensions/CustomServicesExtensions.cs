@@ -1,3 +1,5 @@
+using Promotion.GRPS.MappingConfiguration;
+
 namespace Promotion.GRPS.Extensions;
 
 public static class CustomServicesExtensions
@@ -19,7 +21,9 @@ public static class CustomServicesExtensions
         });
         
         services.AddScoped<IPromoRepository, PromoRepository>();
-
+        
+        Mapping.Configure();
+        
         return services;
     }
 
