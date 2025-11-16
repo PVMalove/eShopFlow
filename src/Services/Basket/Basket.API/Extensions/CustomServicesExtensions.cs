@@ -89,8 +89,8 @@ public static class CustomServicesExtensions
             .WithTags("Basket")
             .MapCarter();
 
-        if (!application.Environment.IsDevelopment()) 
-            return application;
+        // if (!application.Environment.IsDevelopment()) 
+        //     return application;
         
         application.UseSwagger();
         application.UseSwaggerUI(options =>

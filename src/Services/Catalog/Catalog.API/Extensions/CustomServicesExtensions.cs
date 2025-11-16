@@ -34,8 +34,8 @@ public static class CustomServicesExtensions
     {
         application.MapControllers();
 
-        if (!application.Environment.IsDevelopment()) 
-            return application;
+        // if (!application.Environment.IsDevelopment()) 
+        //     return application;
         
         application.UseSwagger();
         application.UseSwaggerUI(options =>

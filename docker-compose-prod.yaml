@@ -13,7 +13,7 @@ services:
     ports:
       - "${POSTGRES_PORT_CATALOG}:5432"
     volumes:
-      - postgres_catalog_prod:/var/lib/postgresql/data/
+      - postgres_catalog_prod:/var/lib/postgresql/
     networks:
       - eshop-network
 
@@ -28,7 +28,7 @@ services:
     ports:
       - "${POSTGRES_PORT_BASKET}:5432"
     volumes:
-      - postgres_basket_prod:/var/lib/postgresql/data/
+      - postgres_basket_prod:/var/lib/postgresql/
     networks:
       - eshop-network
 
@@ -84,6 +84,7 @@ services:
 
   basket_api:
     container_name: basket.api
+    platform: linux/amd64
     build:
       context: .
       dockerfile: src/Services/Basket/Basket.API/Dockerfile
@@ -95,10 +96,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__PgConnection=${PG_CONNECTION_BASKET}
       - ConnectionStrings__RedisConnection=${REDIS_CONNECTION_BASKET}
+      - GrpcSettings__PromotionServiceUrl=${PROMOTION_SERVICE_URL}
     depends_on:
       basket_db:
         condition: service_started
       basket_redis:
+        condition: service_started
+      promotion_api:
         condition: service_started
     restart: unless-stopped
     networks:
@@ -106,9 +110,10 @@ services:
 
   promotion_api:
     container_name: promotion.grps
+    platform: linux/amd64
     build:
       context: .
-      dockerfile: src/Services/Promotion/Promotion.GRPS/Dockerfile
+      dockerfile: src\Services\Promotion\Promotion.GRPC\Dockerfile
       args:
         - BUILDKIT_INLINE_CACHE=1
     ports:

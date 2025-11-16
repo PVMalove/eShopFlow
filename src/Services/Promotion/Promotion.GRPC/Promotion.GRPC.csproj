@@ -22,11 +22,11 @@
     <Protobuf Include="Protos\promo.proto" GrpcServices="Server" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="..\..\..\..\.dockerignore">
       <Link>.dockerignore</Link>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configurations\" />
   </ItemGroup>
 </Project>
