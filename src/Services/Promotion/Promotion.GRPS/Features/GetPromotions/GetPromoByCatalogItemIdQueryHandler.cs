@@ -9,10 +9,9 @@ internal sealed class GetPromoByCatalogItemIdQueryHandler(IPromoRepository promo
 
         if (promo is null)
         {
-            throw new RpcException(
-                new Status(StatusCode.NotFound, $"Для {query.CatalogItemId} не найдена акция"));
+            return new PromotionResponse { Value = 0, CatalogItemId = query.CatalogItemId };
         }
-
+        
         var result = promo.Adapt<PromotionResponse>();
         return result;
     }

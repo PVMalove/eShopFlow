@@ -2,9 +2,9 @@
 
 public class ShoppingCart
 {
-    public string AccountName { get; set; } = null!;
+    public string AccountName { get; init; } = null!;
 
-    public List<ShoppingCartItem> Items { get; set; } = [];
+    public List<ShoppingCartItem> Items { get; init; } = [];
 
     public decimal TotalPrice => Items.Sum(item => item.UnitPrice * item.Quantity);
 

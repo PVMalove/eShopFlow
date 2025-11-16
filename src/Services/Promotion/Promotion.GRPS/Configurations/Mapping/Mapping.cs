@@ -1,4 +1,4 @@
-﻿namespace Promotion.GRPS.MappingConfiguration;
+﻿namespace Promotion.GRPS.Configurations.Mapping;
 
 public static class Mapping
 {

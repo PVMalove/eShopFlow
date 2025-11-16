@@ -1,4 +1,4 @@
-using Promotion.GRPS.MappingConfiguration;
+using Promotion.GRPS.Configurations.Mapping;
 
 namespace Promotion.GRPS.Extensions;
 

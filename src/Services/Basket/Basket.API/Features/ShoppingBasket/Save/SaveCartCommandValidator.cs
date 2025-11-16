@@ -4,23 +4,23 @@ public class SaveCartCommandValidator : AbstractValidator<SaveCartCommand>
 {
     public SaveCartCommandValidator()
     {
-        RuleFor(x => x.Card)
+        RuleFor(x => x.Cart)
             .NotNull()
             .WithMessage("Card не должен быть null.");
 
-        RuleFor(x => x.Card.AccountName)
+        RuleFor(x => x.Cart.AccountName)
             .NotEmpty()
             .WithMessage("AccountName не должен быть пустым.")
             .MaximumLength(100)
             .WithMessage("AccountName не должен превышать 100 символов.");
 
-        RuleFor(x => x.Card.Items)
+        RuleFor(x => x.Cart.Items)
             .NotNull()
             .WithMessage("Items не должен быть null.")
             .Must(items => items.Count > 0)
             .WithMessage("Items должен содержать хотя бы один элемент.");
 
-        RuleForEach(x => x.Card.Items).ChildRules(items =>
+        RuleForEach(x => x.Cart.Items).ChildRules(items =>
         {
             items.RuleFor(item => item.ItemId)
                 .NotEqual(Guid.Empty)

@@ -1,5 +1,7 @@
+using Basket.API.Services;
 using Common.Kernel.Behaviors;
 using Common.Kernel.Exceptions.Handler;
+using Promotion.GRPS.Protos;
 
 namespace Basket.API.Extensions;
 
@@ -58,6 +60,17 @@ public static class CustomServicesExtensions
         
         services.AddScoped<ICartRepository, CartRepository>();
         services.Decorate<ICartRepository, RedisCartCachedRepository>();
+        
+        services.AddScoped<IBasketService, BasketService>();
+        
+        var promotionGrpcUrl = configuration["GrpcSettings:PromotionServiceUrl"];
+        if (string.IsNullOrEmpty(promotionGrpcUrl))
+            throw new InvalidOperationException("GrpcSettings:PromotionServiceUrl not found in configuration.");
+        
+        services.AddGrpcClient<PromotionService.PromotionServiceClient>(option =>
+        {
+            option.Address = new Uri(promotionGrpcUrl);
+        });
         
         return services;
     }
